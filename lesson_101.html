@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 1: What is HTML? - Teaching Guide for RAIE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .lesson-info {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            background: white;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .section-header {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-header .emoji {
+            font-size: 2rem;
+            margin-right: 15px;
+        }
+
+        .section-content {
+            padding: 25px;
+        }
+
+        .activity {
+            background: #f8f9fa;
+            border-left: 5px solid #ff6b6b;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .activity h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .step-list {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #667eea;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .code-example {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .code-example::before {
+            content: "HTML Code";
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .website-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .website-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .website-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .website-card h4 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .website-card p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .drawing-area {
+            background: white;
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .drawing-area h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .webpage-structure {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .webpage-part {
+            padding: 15px 30px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            width: 80%;
+            text-align: center;
+        }
+
+        .header-part { background: #ff6b6b; }
+        .body-part { background: #4ecdc4; height: 100px; display: flex; align-items: center; justify-content: center; }
+        .footer-part { background: #45b7d1; }
+
+        .quiz-section {
+            background: linear-gradient(45deg, #ffd89b, #19547b);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .quiz-question {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .quiz-question h4 {
+            margin-bottom: 10px;
+        }
+
+        .quiz-options {
+            list-style: none;
+        }
+
+        .quiz-options li {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            margin: 5px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .quiz-options li:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .tips-box {
+            background: #e8f5e8;
+            border-left: 5px solid #4caf50;
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 20px 0;
+        }
+
+        .tips-box h4 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .homework-section {
+            background: linear-gradient(45deg, #ff9a9e, #fecfef);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .homework-section h3 {
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .interactive-demo {
+            background: #f0f4f8;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .demo-output {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            min-height: 100px;
+        }
+
+        .timer {
+            background: #ff6b6b;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📘 Lesson 1: What is HTML?</h1>
+            <p>Teaching Guide for RAIE - Day 1 of the HTML Adventure!</p>
+        </div>
+
+        <div class="lesson-info">
+            <h2>📋 Lesson Overview</h2>
+            <div class="timer">⏱️ Duration: 45-60 minutes</div>
+            <p><strong>Age Group:</strong> 8-12 years old (Perfect for RAIE!)</p>
+            <p><strong>Learning Style:</strong> Visual, hands-on, and interactive</p>
+            <p><strong>Materials Needed:</strong> Computer with internet, Replit.com account, drawing paper, colored pencils</p>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <span class="emoji">🎯</span>
+                Learning Objectives for RAIE
+            </div>
+            <div class="section-content">
+                <ul style="list-style-type: none; padding: 0;">
+                    <li style="background: #e3f2fd; padding: 10px; margin-bottom: 10px; border-radius: 5px; border-left: 4px solid #2196f3;">✅ Understand what a website is and how it works</li>
+                    <li style="background: #e8f5e8; padding: 10px; margin-bottom: 10px; border-radius: 5px; border-left: 4px solid #4caf50;">✅ Learn what HTML stands for and what it does</li>
+                    <li style="background: #fff3e0; padding: 10px; margin-bottom: 10px; border-radius: 5px; border-left: 4px solid #ff9800;">✅ Explore basic HTML tags and elements</li>
+                    <li style="background: #fce4ec; padding: 10px; margin-bottom: 10px; border-radius: 5px; border-left: 4px solid #e91e63;">✅ Create their first HTML document structure</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <span class="emoji">🚀</span>
+                Lesson Plan - Step by Step
+            </div>
+            <div class="section-content">
+                
+                <div class="activity">
+                    <h3>Activity 1: What is a Website? (10 minutes)</h3>
+                    <ol class="step-list">
+                        <li><strong>Start with excitement:</strong> "Hey RAIE! Today we're going to become website builders! But first, let's explore some cool websites together."</li>
+                        <li><strong>Show these kid-friendly websites:</strong></li>
+                    </ol>
+                    
+                    <div class="website-examples">
+                        <div class="website-card" onclick="showWebsiteInfo('nasa')">
+                            <h4>🚀 NASA Kids Club</h4>
+                            <p>Space adventures and games</p>
+                        </div>
+                        <div class="website-card" onclick="showWebsiteInfo('natgeo')">
+                            <h4>🦁 National Geographic Kids</h4>
+                            <p>Animals and nature facts</p>
+                        </div>
+                        <div class="website-card" onclick="showWebsiteInfo('scratch')">
+                            <h4>🐱 Scratch Jr.</h4>
+                            <p>Kids programming platform</p>
+                        </div>
+                    </div>
+                    
+                    <ol class="step-list" start="3">
+                        <li><strong>Ask RAIE:</strong> "What do you notice about these websites? What makes them interesting?"</li>
+                        <li><strong>Explain:</strong> "Websites are like digital books or magazines that we can read on our computers. But instead of just words, they have pictures, colors, and even games!"</li>
+                    </ol>
+                </div>
+
+                <div class="activity">
+                    <h3>Activity 2: Drawing a Webpage (15 minutes)</h3>
+                    <ol class="step-list">
+                        <li><strong>Give RAIE paper and colored pencils</strong></li>
+                        <li><strong>Say:</strong> "Let's draw what a webpage looks like! Every webpage has three main parts, just like a sandwich!"</li>
+                        <li><strong>Show this example on screen:</strong></li>
+                    </ol>
+                    
+                    <div class="drawing-area">
+                        <h4>📝 RAIE's Webpage Drawing Template</h4>
+                        <div class="webpage-structure">
+                            <div class="webpage-part header-part">HEADER (Top bun) - Title and Navigation</div>
+                            <div class="webpage-part body-part">BODY (The filling) - Main content, pictures, text</div>
+                            <div class="webpage-part footer-part">FOOTER (Bottom bun) - Contact info, links</div>
+                        </div>
+                    </div>
+                    
+                    <ol class="step-list" start="4">
+                        <li><strong>Let RAIE draw their own webpage design</strong> - encourage creativity!</li>
+                        <li><strong>Ask:</strong> "What would you put in each section of your webpage?"</li>
+                    </ol>
+                </div>
+
+                <div class="activity">
+                    <h3>Activity 3: What is HTML? (10 minutes)</h3>
+                    <ol class="step-list">
+                        <li><strong>Introduce HTML:</strong> "RAIE, HTML is like the skeleton of a webpage! Just like your body has bones to give it shape, webpages have HTML to give them structure."</li>
+                        <li><strong>Explain the acronym:</strong> 
+                            <ul style="margin: 10px 0; padding-left: 20px;">
+                                <li><strong>H</strong>yper<strong>T</strong>ext - Special text that can link to other pages</li>
+                                <li><strong>M</strong>arkup - Instructions that tell the computer how to display things</li>
+                                <li><strong>L</strong>anguage - A way for us to "talk" to computers</li>
+                            </ul>
+                        </li>
+                        <li><strong>Use an analogy:</strong> "Think of HTML like instructions for building with LEGO blocks. We tell the computer: 'Put a big title here, add a picture there, make this text bold!'"</li>
+                    </ol>
+                </div>
+
+                <div class="activity">
+                    <h3>Activity 4: HTML Tags - The Magic Instructions (15 minutes)</h3>
+                    <ol class="step-list">
+                        <li><strong>Introduce tags:</strong> "HTML uses special codes called 'tags' - they're like magic words that tell the computer what to do!"</li>
+                        <li><strong>Show the basic structure:</strong></li>
+                    </ol>
+                    
+                    <div class="code-example">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;RAIE's First Website&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Hello, I'm RAIE!&lt;/h1&gt;
+        &lt;p&gt;Welcome to my first webpage!&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+                    </div>
+                    
+                    <ol class="step-list" start="3">
+                        <li><strong>Explain each part:</strong>
+                            <ul style="margin: 10px 0; padding-left: 20px;">
+                                <li><code>&lt;!DOCTYPE html&gt;</code> - "Hey computer, this is an HTML page!"</li>
+                                <li><code>&lt;html&gt;</code> - The main container (like a big box)</li>
+                                <li><code>&lt;head&gt;</code> - Information about the page (like a label on the box)</li>
+                                <li><code>&lt;title&gt;</code> - What shows in the browser tab</li>
+                                <li><code>&lt;body&gt;</code> - Everything people see on the page</li>
+                            </ul>
+                        </li>
+                        <li><strong>Point out:</strong> "See how tags come in pairs? Like bookends holding books together!"</li>
+                    </ol>
+                </div>
+
+                <div class="activity">
+                    <h3>Activity 5: Hands-On Coding Time! (15 minutes)</h3>
+                    <ol class="step-list">
+                        <li><strong>Open Replit.com</strong> and create a new HTML project</li>
+                        <li><strong>Say:</strong> "Now RAIE, let's build your very first webpage together!"</li>
+                        <li><strong>Type together step-by-step:</strong></li>
+                    </ol>
+                    
+                    <div class="interactive-demo">
+                        <h4>🔧 Code Along with RAIE</h4>
+                        <button class="btn" onclick="showCode(1)">Step 1: Basic Structure</button>
+                        <button class="btn" onclick="showCode(2)">Step 2: Add Title</button>
+                        <button class="btn" onclick="showCode(3)">Step 3: Add Content</button>
+                        
+                        <div class="demo-output" id="codeOutput">
+                            Click the buttons above to see each step!
+                        </div>
+                    </div>
+                    
+                    <ol class="step-list" start="4">
+                        <li><strong>Let RAIE type</strong> (guide them but let them do the typing)</li>
+                        <li><strong>Celebrate each step:</strong> "Great job! Look what you just created!"</li>
+                        <li><strong>Run the code</strong> and show the webpage preview</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <span class="emoji">🎮</span>
+                Fun Quiz Time!
+            </div>
+            <div class="section-content">
+                <div class="quiz-section">
+                    <div class="quiz-question">
+                        <h4>❓ What does HTML stand for?</h4>
+                        <ul class="quiz-options">
+                            <li onclick="quizAnswer(this, false)">A) Hot Text Markup Language</li>
+                            <li onclick="quizAnswer(this, true)">B) HyperText Markup Language</li>
+                            <li onclick="quizAnswer(this, false)">C) Happy Text Making Language</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <h4>❓ Which tag contains everything people see on the webpage?</h4>
+                        <ul class="quiz-options">
+                            <li onclick="quizAnswer(this, false)">A) &lt;head&gt;</li>
+                            <li onclick="quizAnswer(this, true)">B) &lt;body&gt;</li>
+                            <li onclick="quizAnswer(this, false)">C) &lt;title&gt;</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <h4>❓ HTML tags usually come in...</h4>
+                        <ul class="quiz-options">
+                            <li onclick="quizAnswer(this, false)">A) Groups of three</li>
+                            <li onclick="quizAnswer(this, true)">B) Pairs (opening and closing)</li>
+                            <li onclick="quizAnswer(this, false)">C) Single tags only</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <span class="emoji">💡</span>
+                Teaching Tips for Success
+            </div>
+            <div class="section-content">
+                <div class="tips-box">
+                    <h4>🎯 Keep RAIE Engaged:</h4>
+                    <ul>
+                        <li>Use lots of praise: "Wow, RAIE! You're a natural at this!"</li>
+                        <li>Let them make choices: "What should we put in the title?"</li>
+                        <li>Relate to their interests: "We could make a webpage about your favorite game!"</li>
+                        <li>Take breaks if needed - coding can be intense!</li>
+                    </ul>
+                </div>
+                
+                <div class="tips-box">
+                    <h4>🔧 Technical Tips:</h4>
+                    <ul>
+                        <li>Type slowly and clearly - let RAIE see each character</li>
+                        <li>Explain errors positively: "Oops! Let's fix this together - that's how we learn!"</li>
+                        <li>Save frequently: "Let's save our awesome work!"</li>
+                        <li>Show the preview often to maintain excitement</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="homework-section">
+            <h3>🏠 RAIE's Fun Homework Challenge</h3>
+            <div style="background: white; padding: 20px; border-radius: 10px; margin-top: 15px;">
+                <h4>Mission: Website Detective! 🕵️‍♀️</h4>
+                <p><strong>Task:</strong> Visit 2-3 of your favorite websites with a grown-up and draw what you see!</p>
+                <ul style="margin: 15px 0; padding-left: 20px;">
+                    <li>Draw the header (top part)</li>
+                    <li>Draw the main content (middle part)</li>
+                    <li>Draw the footer (bottom part)</li>
+                    <li>Write down what colors you see</li>
+                    <li>Note what makes each website special</li>
+                </ul>
+                <p><strong>Bonus:</strong> Think about what you'd like to put on your own website! 🌟</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <span class="emoji">🎉</span>
+                Wrap-Up & Celebration
+            </div>
+            <div class="section-content">
+                <div style="background: linear-gradient(45deg, #ff9a9e, #fecfef); padding: 20px; border-radius: 10px; text-align: center;">
+                    <h3>🏆 RAIE Did Amazing Today!</h3>
+                    <p style="font-size: 1.1rem; margin: 15px 0;">Today RAIE learned:</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>✅ What websites are and how they work</li>
+                        <li>✅ What HTML stands for and does</li>
+                        <li>✅ Basic HTML structure and tags</li>
+                        <li>✅ Created their very first webpage!</li>
+                    </ul>
+                    <button class="btn" onclick="celebrate()">🎉 Celebrate RAIE's Success!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showWebsiteInfo(site) {
+            const info = {
+                nasa: "NASA Kids Club has games, videos, and cool space facts! Notice how it has a colorful header, fun content in the middle, and links at the bottom.",
+                natgeo: "National Geographic Kids shows amazing animal photos and stories! See how they organize everything with clear sections?",
+                scratch: "Scratch Jr. lets kids create their own games and stories! Look at how they use bright colors and simple navigation."
+            };
+            alert(info[site]);
+        }
+
+        function showCode(step) {
+            const codes = {
+                1: `&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;/html&gt;`,
+                2: `&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;RAIE's First Website&lt;/title&gt;
+    &lt;/head&gt;
+&lt;/html&gt;`,
+                3: `&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;RAIE's First Website&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Hello, I'm RAIE!&lt;/h1&gt;
+        &lt;p&gt;Welcome to my first webpage!&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;`
+            };
+            document.getElementById('codeOutput').innerHTML = `<pre style="text-align: left; background: #2d3748; color: #e2e8f0; padding: 15px; border-radius: 5px; overflow-x: auto;">${codes[step]}</pre>`;
+        }
+
+        function quizAnswer(element, isCorrect) {
+            if (isCorrect) {
+                element.style.background = '#4caf50';
+                element.innerHTML += ' ✅ Correct!';
+                setTimeout(() => alert('Great job, RAIE! 🎉'), 100);
+            } else {
+                element.style.background = '#f44336';
+                element.innerHTML += ' ❌ Try again!';
+            }
+        }
+
+        function celebrate() {
+            alert('🎉 Fantastic work today, RAIE! You\'re already becoming a web developer! 🌟');
+        }
+    </script>
+</body>
+</html>
