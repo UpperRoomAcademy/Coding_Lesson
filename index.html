@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAIE's HTML Learning Adventure - June 2024</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: bounce 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-5px); }
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: white;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .goal-section {
+            background: linear-gradient(45deg, #ffd89b, #19547b);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .goal-section h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .weeks-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .week-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .week-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .week-card.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .week-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .week-emoji {
+            font-size: 2rem;
+            margin-right: 15px;
+        }
+
+        .week-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .lesson {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 5px solid #ff6b6b;
+            transition: all 0.3s ease;
+        }
+
+        .lesson:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .lesson-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .lesson-content {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .lesson.expanded .lesson-content {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .objectives, .activities, .mini-task {
+            margin-bottom: 15px;
+        }
+
+        .objectives h4, .activities h4, .mini-task h4 {
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .objectives ul, .activities ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .objectives li, .activities li {
+            background: #e3f2fd;
+            padding: 8px 12px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            border-left: 3px solid #2196f3;
+        }
+
+        .mini-task {
+            background: #fff3e0;
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #ff9800;
+        }
+
+        .progress-bar {
+            background: #ddd;
+            border-radius: 10px;
+            height: 20px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #4caf50, #8bc34a);
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tools-section {
+            background: linear-gradient(45deg, #a8edea, #fed6e3);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .tool-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .outcome-section {
+            background: linear-gradient(45deg, #ff9a9e, #fecfef);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            color: #333;
+        }
+
+        .outcome-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .outcome-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .checklist-item.completed {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            z-index: 1000;
+            animation: celebrate 0.5s ease;
+        }
+
+        @keyframes celebrate {
+            0% { transform: translate(-50%, -50%) scale(0); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .schedule-day {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid #ff6b6b;
+        }
+
+        .schedule-day h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .schedule-day p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌟 RAIE's HTML Learning Adventure 🌟</h1>
+            <p>June 2024 - Mondays, Thursdays & Fridays</p>
+        </div>
+
+        <div class="goal-section">
+            <h2>🎯 Our Amazing Goal!</h2>
+            <p>By the end of June, RAIE will create a fantastic personal website with sections like "About Me," "My Hobbies," and "My Favorite Things!" 🚀</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill">0% Complete</div>
+        </div>
+
+        <div class="schedule-grid">
+            <div class="schedule-day">
+                <h4>📅 Mondays</h4>
+                <p>New concepts & theory</p>
+            </div>
+            <div class="schedule-day">
+                <h4>📅 Thursdays</h4>
+                <p>Hands-on practice</p>
+            </div>
+            <div class="schedule-day">
+                <h4>📅 Fridays</h4>
+                <p>Creative projects</p>
+            </div>
+        </div>
+
+        <div class="weeks-container">
+            <!-- Week 1 -->
+            <div class="week-card" onclick="toggleWeek(this)">
+                <div class="week-header">
+                    <div class="week-emoji">🌟</div>
+                    <div class="week-title">Week 1: HTML Basics</div>
+                </div>
+                <div class="week-content">
+                    <div class="lesson" onclick="toggleLesson(event, this)">
+                        <div class="lesson-title">📘 Lesson 1: What is HTML? (Day 1)</div>
+                        <div class="lesson-content">
+                            <div class="objectives">
+                                <h4>🎯 What RAIE Will Learn:</h4>
+                                <ul>
+                                    <li>Understand what a website is</li>
+                                    <li>Learn what HTML means</li>
+                                    <li>Explore tags and elements</li>
+                                </ul>
+                            </div>
+                            <div class="activities">
+                                <h4>🎨 Fun Activities:</h4>
+                                <ul>
+                                    <li>Explore cool kid-friendly websites</li>
+                                    <li>Draw what a webpage looks like</li>
+                                    <li>Learn the HTML skeleton structure</li>
+                                </ul>
+                            </div>
+                            <div class="mini-task">
+                                <h4>✨ RAIE's Mini Challenge:</h4>
+                                <p>Write your first HTML page structure!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lesson" onclick="toggleLesson(event, this)">
+                        <div class="lesson-title">📘 Lesson 2: Headers & Paragraphs (Day 2)</div>
+                        <div class="lesson-content">
+                            <div class="objectives">
+                                <h4>🎯 What RAIE Will Learn:</h4>
+                                <ul>
+                                    <li>Master heading tags h1 to h6</li>
+                                    <li>Create paragraphs with p tags</li>
+                                    <li>Use line breaks</li>
+                                </ul>
+                            </div>
+                            <div class="activities">
+                                <h4>🎨 Fun Activities:</h4>
+                                <ul>
+                                    <li>Create a mini "About RAIE" page</li>
+                                    <li>Practice beautiful formatting</li>
+                                </ul>
+                            </div>
+                            <div class="mini-task">
+                                <h4>✨ RAIE's Mini Challenge:</h4>
+                                <p>Make a page with your name, hobbies, and a cool paragraph about yourself!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lesson" onclick="toggleLesson(event, this)">
+                        <div class="lesson-title">📘 Lesson 3: Text Styling Magic (Day 3)</div>
+                        <div class="lesson-content">
+                            <div class="objectives">
+                                <h4>🎯 What RAIE Will Learn:</h4>
+                                <ul>
+                                    <li>Make text bold, italic, and underlined</li>
+                                    <li>Add horizontal lines and breaks</li>
+                                </ul>
+                            </div>
+                            <div class="activities">
+                                <h4>🎨 Fun Activities:</h4>
+                                <ul>
+                                    <li>Style important words to make them pop!</li>
+                                    <li>Create emphasis in your writing</li>
+                                </ul>
+                            </div>
+                            <div class="mini-task">
+                                <h4>✨ RAIE's Mini Challenge:</h4>
+                                <p>Add a styled paragraph with emphasized keywords!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 2 -->
+            <div class="week-card" onclick="toggleWeek(this)">
+                <div class="week-header">
+                    <div class="week-emoji">🖼️</div>
+                    <div class="week-title">Week 2: Images & Links</div>
+                </div>
+                <div class="week-content">
+                    <div class="lesson" onclick="toggleLesson(event, this)">
+                        <div class="lesson-title">📘 Lesson 4: Adding Cool Images (Day 4)</div>
+                        <div class="lesson-content">
+                            <div class="objectives">
+                                <h4>🎯 What RAIE Will Learn:</h4>
+                                <ul>
+                                    <li>Use the img tag like a pro</li>
+                                    <li>Add pictures to web pages</li>
+                                </ul>
+                            </div>
+                            <div class="mini-task">
+                                <h4>✨ RAIE's Mini Challenge:</h4>
+                                <p>Add your favorite image to your webpage!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lesson" onclick="toggleLesson(event, this)">
+                        <div class="lesson-title">📘 Lesson 5: Making Lists (Day 5)</div>
+                        <div class="lesson-content">
+                            <div class="objectives">
+                                <h4>🎯 What RAIE Will Learn:</h4>
+                                <ul>
+                                    <li>Create ordered and unordered lists</li>
+                                    <li>List your favorite things</li>
+                                </ul>
+                            </div>
+                            <div class="mini-task">
+                                <h4>✨ RAIE's Mini Challenge:</h4>
+                                <p>Make two lists - one for favorite foods and one for favorite games!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lesson" onclick="toggleLesson(event, this)">
+                        <div class="lesson-title">📘 Lesson 6: Creating Links (Day 6)</div>
+                        <div class="lesson-content">
+                            <div class="objectives">
+                                <h4>🎯 What RAIE Will Learn:</h4>
+                                <ul>
+                                    <li>Create clickable links to other websites</li>
+                                    <li>Make links open in new tabs</li>
+                                </ul>
+                            </div>
+                            <div class="mini-task">
+                                <h4>✨ RAIE's Mini Challenge:</h4>
+                                <p>Add a link to your favorite website!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 3 -->
+            <div class="week-card" onclick="toggleWeek(this)">
+                <div class="week-header">
+                    <div class="week-emoji">🎨</div>
+                    <div class="week-title">Week 3: Styling & Design</div>
+                </div>
+                <div class="week-content">
+                    <div class="lesson" onclick="toggleLesson(event, this)">
+                        <div class="lesson-title">📘 Lesson 7: Colorful Text Magic (Day 7)</div>
+                        <div class="lesson-content">
+                            <div class="objectives">
+                                <h4>🎯 What RAIE Will Learn:</h4>
+                                <ul>
+                                    <li>Add colors to text</li>
+                                    <li>Change font sizes and styles</li>
+                                    <li>Introduction to CSS</li>
+                                </ul>
+                            </div>
+                            <div class="mini-task">
+                                <h4>✨ RAIE's Mini Challenge:</h4>
+                                <p>Make your "About Me" page colorful and beautiful!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lesson" onclick="toggleLesson(event, this)">
+                        <div class="lesson-title">📘 Lesson 8: Backgrounds & Borders (Day 8)</div>
+                        <div class="lesson-content">
+                            <div class="objectives">
+                                <h4>🎯 What RAIE Will Learn:</h4>
+                                <ul>
+                                    <li>Add colorful backgrounds</li>
+                                    <li>Create cool borders</li>
+                                    <li>Add padding for better spacing</li>
+                                </ul>
+                            </div>
+                            <div class="mini-task">
+                                <h4>✨ RAIE's Mini Challenge:</h4>
+                                <p>Give your page a awesome colorful background!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lesson" onclick="toggleLesson(event, this)">
+                        <div class="lesson-title">📘 Lesson 9: Organizing with Sections (Day 9)</div>
+                        <div class="lesson-content">
+                            <div class="objectives">
+                                <h4>🎯 What RAIE Will Learn:</h4>
+                                <ul>
+                                    <li>Use divs and sections to organize content</li>
+                                    <li>Create neat page layouts</li>
+                                </ul>
+                            </div>
+                            <div class="mini-task">
+                                <h4>✨ RAIE's Mini Challenge:</h4>
+                                <p>Organize your page into clear sections: About, Hobbies, Contact!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Week 4 -->
+            <div class="week-card" onclick="toggleWeek(this)">
+                <div class="week-header">
+                    <div class="week-emoji">🌐</div>
+                    <div class="week-title">Week 4: Final Project</div>
+                </div>
+                <div class="week-content">
+                    <div class="lesson" onclick="toggleLesson(event, this)">
+                        <div class="lesson-title">📘 Lesson 10: Building Your Complete Website (Day 10)</div>
+                        <div class="lesson-content">
+                            <div class="objectives">
+                                <h4>🎯 What RAIE Will Learn:</h4>
+                                <ul>
+                                    <li>Combine all skills into one amazing website</li>
+                                    <li>Create multiple sections</li>
+                                </ul>
+                            </div>
+                            <div class="mini-task">
+                                <h4>✨ RAIE's Mini Challenge:</h4>
+                                <p>Build your complete personal website with all sections!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lesson" onclick="toggleLesson(event, this)">
+                        <div class="lesson-title">📘 Lesson 11: Multi-Page Magic (Day 11)</div>
+                        <div class="lesson-content">
+                            <div class="objectives">
+                                <h4>🎯 What RAIE Will Learn:</h4>
+                                <ul>
+                                    <li>Create multiple HTML pages</li>
+                                    <li>Link pages together</li>
+                                </ul>
+                            </div>
+                            <div class="mini-task">
+                                <h4>✨ RAIE's Mini Challenge:</h4>
+                                <p>Create a 2-page website with navigation!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lesson" onclick="toggleLesson(event, this)">
+                        <div class="lesson-title">📘 Lesson 12: Show Off Time! (Day 12)</div>
+                        <div class="lesson-content">
+                            <div class="objectives">
+                                <h4>🎯 What RAIE Will Learn:</h4>
+                                <ul>
+                                    <li>Present your amazing website</li>
+                                    <li>Add final touches</li>
+                                    <li>Celebrate your achievement!</li>
+                                </ul>
+                            </div>
+                            <div class="mini-task">
+                                <h4>✨ RAIE's Mini Challenge:</h4>
+                                <p>Show your website to family and friends!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tools-section">
+            <h2>🧠 RAIE's Learning Toolkit</h2>
+            <div class="tools-grid">
+                <div class="tool-item">
+                    <h4>💻 Replit.com</h4>
+                    <p>Online coding playground</p>
+                </div>
+                <div class="tool-item">
+                    <h4>🎨 Color Picker</h4>
+                    <p>htmlcolorcodes.com</p>
+                </div>
+                <div class="tool-item">
+                    <h4>📝 HTML Cheat Sheet</h4>
+                    <p>Quick reference guide</p>
+                </div>
+                <div class="tool-item">
+                    <h4>🖼️ Image Sources</h4>
+                    <p>Safe image links</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="outcome-section">
+            <h2>🥇 What RAIE Will Achieve!</h2>
+            <div class="outcome-list">
+                <div class="outcome-item">
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="outcome1">
+                        <label for="outcome1">Two-page personal website</label>
+                    </div>
+                </div>
+                <div class="outcome-item">
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="outcome2">
+                        <label for="outcome2">HTML & CSS skills</label>
+                    </div>
+                </div>
+                <div class="outcome-item">
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="outcome3">
+                        <label for="outcome3">Confidence in web design</label>
+                    </div>
+                </div>
+                <div class="outcome-item">
+                    <div class="checklist-item" onclick="toggleCheck(this)">
+                        <input type="checkbox" id="outcome4">
+                        <label for="outcome4">Ready for more adventures!</label>
+                    </div>
+                </div>
+            </div>
+            <button class="btn" onclick="celebrate()">🎉 Celebrate RAIE's Success!</button>
+        </div>
+    </div>
+
+    <div class="celebration" id="celebration">
+        <h2>🎉 Congratulations RAIE! 🎉</h2>
+        <p>You're going to be an amazing web developer!</p>
+        <button class="btn" onclick="hideCelebration()">Thank you!</button>
+    </div>
+
+    <script>
+        let completedLessons = 0;
+        const totalLessons = 12;
+
+        function toggleWeek(weekCard) {
+            weekCard.classList.toggle('active');
+        }
+
+        function toggleLesson(event, lesson) {
+            event.stopPropagation();
+            lesson.classList.toggle('expanded');
+            
+            if (lesson.classList.contains('expanded')) {
+                completedLessons++;
+            } else {
+                completedLessons--;
+            }
+            
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const percentage = Math.round((completedLessons / totalLessons) * 100);
+            const progressFill = document.getElementById('progressFill');
+            progressFill.style.width = percentage + '%';
+            progressFill.textContent = percentage + '% Complete';
+            
+            if (percentage === 100) {
+                setTimeout(() => {
+                    document.getElementById('celebration').style.display = 'block';
+                }, 500);
+            }
+        }
+
+        function toggleCheck(item) {
+            const checkbox = item.querySelector('input[type="checkbox"]');
+            checkbox.checked = !checkbox.checked;
+            item.classList.toggle('completed', checkbox.checked);
+        }
+
+        function celebrate() {
+            document.getElementById('celebration').style.display = 'block';
+        }
+
+        function hideCelebration() {
+            document.getElementById('celebration').style.display = 'none';
+        }
+
+        // Add some interactive sparkles
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = '✨';
+            sparkle.style.position = 'fixed';
+            sparkle.style.fontSize = '20px';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.zIndex = '9999';
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.top = Math.random() * window.innerHeight + 'px';
+            sparkle.style.animation = 'sparkle 3s ease-out forwards';
+            
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 3000);
+        }
+
+        // Add sparkle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkle {
+                0% { opacity: 1; transform: scale(0); }
+                50% { opacity: 1; transform: scale(1); }
+                100% { opacity: 0; transform: scale(0) translateY(-50px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Create sparkles periodically
+        setInterval(createSparkle, 2000);
+    </script>
+</body>
+</html>
